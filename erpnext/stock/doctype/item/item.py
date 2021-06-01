@@ -60,7 +60,7 @@ class Item(WebsiteGenerator):
 	def autoname(self):
 		if frappe.db.get_default("item_naming_by") == "Naming Series":
 			if self.variant_of:
-				if not self.item_code:
+				if not self.item_code or "AUTO" in self.item_code:
 					template_item_name = frappe.db.get_value("Item", self.variant_of, "item_name")
 					vqrsc = frappe.db.count('Item', {'variant_of':self.variant_of}) + 1
 					self.item_code = "%s-%d" %(self.variant_of,vqrsc)
