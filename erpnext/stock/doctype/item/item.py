@@ -776,6 +776,8 @@ class Item(WebsiteGenerator):
 			if not self.attributes:
 				frappe.throw(_("Attribute table is mandatory"))
 			for d in self.attributes:
+				if "AUTO" in d.attribute:
+					continue
 				if d.attribute in attributes:
 					frappe.throw(
 						_("Attribute {0} selected multiple times in Attributes Table".format(d.attribute)))
