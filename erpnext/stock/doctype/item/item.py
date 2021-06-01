@@ -62,8 +62,10 @@ class Item(WebsiteGenerator):
 			if self.variant_of:
 				if not self.item_code:
 					template_item_name = frappe.db.get_value("Item", self.variant_of, "item_name")
-					self.item_code = make_variant_item_code(self.variant_of, template_item_name, self)
-					frappe.msgprint(template_item_name)
+					vqrsc = frappe.db.count('Item', {'variant_of':self.variant_of}) + 1
+					self.item_code = "%s-%d" %(self.variant_of,vqrsc)
+					#self.variant_of, template_item_name, self)
+					#frappe.msgprint(template_item_name)
 			else:
 				from frappe.model.naming import set_name_by_naming_series
 				set_name_by_naming_series(self)
@@ -73,8 +75,8 @@ class Item(WebsiteGenerator):
 
 		self.item_code = strip(self.item_code)
 		self.name = self.item_code
-		if not self.item_code:
-			self.item_code = 'QQQ'
+		#if not self.item_code:
+		#	self.item_code = 'QQQ'
 
 	def before_insert(self):
 		if not self.description:
