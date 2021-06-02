@@ -58,6 +58,14 @@ class Item(WebsiteGenerator):
 		self.set_onload('asset_naming_series', self._asset_naming_series)
 
 	def autoname(self):
+		if self.fiche_technique_modele:
+			self.nom_compose = ""
+			nc = ""
+			for f in self.fiche_technique_modele:
+				nc = "%s %s %s" % (nc,f.valeurm,f.valeur)
+			if nc:
+				self.nom_compose = nc
+				
 		if frappe.db.get_default("item_naming_by") == "Naming Series":
 			if self.variant_of:
 				if not self.item_code or "AUTO" in self.item_code:
