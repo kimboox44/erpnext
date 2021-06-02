@@ -58,13 +58,6 @@ class Item(WebsiteGenerator):
 		self.set_onload('asset_naming_series', self._asset_naming_series)
 
 	def autoname(self):
-		if self.fiche_technique_modele:
-			self.nom_compose = ""
-			nc = "%s " % self.item_name
-			for f in self.fiche_technique_modele:
-				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
-			if nc:
-				self.nom_compose = nc
 				
 		if frappe.db.get_default("item_naming_by") == "Naming Series":
 			if self.variant_of:
@@ -147,7 +140,14 @@ class Item(WebsiteGenerator):
 			self.old_website_item_groups = frappe.db.sql_list("""select item_group
 					from `tabWebsite Item Group`
 					where parentfield='website_item_groups' and parenttype='Item' and parent=%s""", self.name)
-
+		if self.fiche_technique_modele:
+			self.nom_compose = ""
+			nc = "%s " % self.item_name
+			for f in self.fiche_technique_modele:
+				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
+			if nc:
+				self.nom_compose = nc
+				
 	def on_update(self):
 		invalidate_cache_for_item(self)
 		self.validate_name_with_item_group()
