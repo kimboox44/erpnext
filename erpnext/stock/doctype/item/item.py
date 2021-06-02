@@ -142,7 +142,7 @@ class Item(WebsiteGenerator):
 					where parentfield='website_item_groups' and parenttype='Item' and parent=%s""", self.name)
 		if self.fiche_technique_modele or self.fiche_technique:
 			self.nom_compose = ""
-			nc = "%s " % self.item_name
+			nc = "%s " % self.item_group
 			for f in self.fiche_technique_modele:
 				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
 			for f in self.fiche_technique:
