@@ -73,7 +73,7 @@ class Item(WebsiteGenerator):
 					vqrsc = frappe.db.count('Item', {'variant_of':self.variant_of}) + 1
 					code = str(vqrsc)
 					code = code.zfill(5)
-					self.item_code = "%s-%d" %(self.variant_of,vqrsc)
+					self.item_code = "%s-%s" %(self.variant_of,code)
 					#self.variant_of, template_item_name, self)
 					#frappe.msgprint(template_item_name)
 			else:
