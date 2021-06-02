@@ -22,6 +22,22 @@ frappe.ui.form.on("Item", {
 		if (frm.doc.is_fixed_asset) {
 			frm.trigger("set_asset_naming_series");
 		}
+		frm.fields_dict["fiche_technique_modele"].grid.get_field("valeurm").get_query = function(doc, cdt, cdn) {
+			const row = locals[cdt][cdn];
+			return {
+				filters: {
+					"parent": row.attribut_fiche_technique
+				}
+			}
+		}
+		frm.fields_dict["fiche_technique"].grid.get_field("valeurm").get_query = function(doc, cdt, cdn) {
+			const row = locals[cdt][cdn];
+			return {
+				filters: {
+					"parent": row.attribut_fiche_technique
+				}
+			}
+		}
 	},
 
 	refresh: function(frm) {
