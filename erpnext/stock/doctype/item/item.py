@@ -63,6 +63,8 @@ class Item(WebsiteGenerator):
 				if not self.item_code or "AUTO" in self.item_code:
 					template_item_name = frappe.db.get_value("Item", self.variant_of, "item_name")
 					vqrsc = frappe.db.count('Item', {'variant_of':self.variant_of}) + 1
+					code = str(vqrsc)
+					code = code.zfill(5)
 					self.item_code = "%s-%d" %(self.variant_of,vqrsc)
 					#self.variant_of, template_item_name, self)
 					#frappe.msgprint(template_item_name)
