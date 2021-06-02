@@ -60,9 +60,9 @@ class Item(WebsiteGenerator):
 	def autoname(self):
 		if self.fiche_technique_modele:
 			self.nom_compose = ""
-			nc = ""
+			nc = "%s " % self.item_name
 			for f in self.fiche_technique_modele:
-				nc = "%s %s %s" % (nc,f.valeurm,f.valeur)
+				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
 			if nc:
 				self.nom_compose = nc
 				
