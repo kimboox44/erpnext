@@ -140,10 +140,12 @@ class Item(WebsiteGenerator):
 			self.old_website_item_groups = frappe.db.sql_list("""select item_group
 					from `tabWebsite Item Group`
 					where parentfield='website_item_groups' and parenttype='Item' and parent=%s""", self.name)
-		if self.fiche_technique_modele:
+		if self.fiche_technique_modele or self.fiche_technique:
 			self.nom_compose = ""
 			nc = "%s " % self.item_name
 			for f in self.fiche_technique_modele:
+				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
+			for f in self.fiche_technique:
 				nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
 			if nc:
 				self.nom_compose = nc
