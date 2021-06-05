@@ -146,11 +146,12 @@ class Item(WebsiteGenerator):
 			for f in self.fiche_technique_modele:
 				if f.composer:
 					nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
-			nc = "%s [" % nc
-			for f in self.fiche_technique:
-				if f.composer:
-					nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
-			nc = "%s]" % nc
+			if self.fiche_technique:
+				nc = "%s [" % nc
+				for f in self.fiche_technique:
+					if f.composer:
+						nc = "%s %s %s " % (nc,f.valeurm or "",f.valeur or "")
+				nc = "%s]" % nc
 			if nc:
 				self.nom_compose = nc
 				
